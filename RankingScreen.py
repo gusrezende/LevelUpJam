@@ -4,6 +4,7 @@ import json
 TeamsHistory = "teams.json"
 
 #Funções utilizadas no código-----------------------------------------------
+
 def clear():
     os.system('cls')
 def load_teams():
@@ -29,6 +30,7 @@ def add_points(teams):
         print("\nO que deseja fazer?")
         print("  1. Adicionar pontos")
         print("  2. Encerrar e ver ranking final")
+        print("  3. Editar Pontos")
         
         option = input("\nEscolha uma opção: ")
         
@@ -49,15 +51,37 @@ def add_points(teams):
             for i, team in enumerate(ranking, start=1):
                 print(f"  {i}. {team['nome']} - {team['pontos']} pontos")
             break
+        elif option == '3':
+            print("=== EDITANDO PONTOS ===")
+            edit_points(teams)
 
-#Código principal-------------------------------------
+def edit_points(teams):
+    clear()
+    print("=== EDITANDO PONTOS ===")
+    for i, team in enumerate(teams, start=1):
+        print(f"  {i}. {team['nome']} - {team['pontos']} pontos")
+    
+    number = int(input("\nDigite o número da equipe: "))
+    if 1 <= number <= len(teams):
+        newPoints = int(input("Digite a nova pontuação da equipe: "))
+        teams[number - 1]['pontos'] = newPoints
+        save_teams(teams)
+        print("Pontos alterados com sucesso!")
+    else:
+        print("Equipe inválida!")
+        
+    
+#Código principal----------------------------------------------------------
 
 teams = load_teams()
 
 clear()
 
+print("=== LevelUp!Jam! ===")
+print("\nO que deseja fazer? \n1.Lançar Desafios! \n2.Pontuar Equipes")
+
 if len(teams) == 0:
-    answear = input("Nenhuma equipe registrada, deseja registrar equipes? (S/N): ")
+    answear = input("\nNenhuma equipe registrada, deseja registrar equipes? (S/N): ")
     if answear == 'S' or answear == 's':
         print("\nVamos registrar nossas equipes!")
         
@@ -74,7 +98,7 @@ if len(teams) == 0:
     else:
         print("Até mais!")
 else:
-    print("Equipes registradas:")
+    print("\nEquipes registradas:")
     for i, team in enumerate(teams, start=1):
         print(f"  {i}. {team['nome']} - {team['pontos']} pontos")
     
@@ -84,4 +108,5 @@ else:
         add_points(teams)
     else:
         print("Até mais!")
+
     
