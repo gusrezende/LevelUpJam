@@ -78,11 +78,11 @@ def edit_points(teams):
 
 def launch_challenge(teams):
     clear()
-    print("\nQual equipe você gostaria de amaldiçoar?")
+    print("\nQual equipe você gostaria de amaldiçoar?\n")
     for i, team in enumerate(teams, start=1):
         print(f"  {i}. {team['nome']} - {team['pontos']} pontos")
     
-    number = int(input("Digite o número da equipe: "))
+    number = int(input("\nDigite o número da equipe: "))
     if 1 <= number <= len(teams):
         curse = input("Digite a maldição: ")
         print(f"A equipe {teams[number - 1]['nome']} foi amaldiçoada a: {curse}")
