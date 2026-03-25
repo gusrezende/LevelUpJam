@@ -31,6 +31,7 @@ def add_points(teams):
         print("  1. Adicionar pontos")
         print("  2. Encerrar e ver ranking final")
         print("  3. Editar Pontos")
+        print("  4. Lançar Maldição")
         
         option = input("\nEscolha uma opção: ")
         
@@ -54,6 +55,11 @@ def add_points(teams):
         elif option == '3':
             print("=== EDITANDO PONTOS ===")
             edit_points(teams)
+        elif option == '4':
+            print("\nHora de lançar maldições!")
+            launch_challenge(teams)
+            
+
 
 def edit_points(teams):
     clear()
@@ -69,7 +75,27 @@ def edit_points(teams):
         print("Pontos alterados com sucesso!")
     else:
         print("Equipe inválida!")
-        
+
+def launch_challenge(teams):
+    clear()
+    print("\nQual equipe você gostaria de amaldiçoar?")
+    for i, team in enumerate(teams, start=1):
+        print(f"  {i}. {team['nome']} - {team['pontos']} pontos")
+    
+    number = int(input("Digite o número da equipe: "))
+    if 1 <= number <= len(teams):
+        curse = input("Digite a maldição: ")
+        print(f"A equipe {teams[number - 1]['nome']} foi amaldiçoada a: {curse}")
+    
+    print("A maldição foi concluída? (S/N): ")
+    curseAnswear = input("Digite sua resposta: ")
+
+    if curseAnswear == 'S' or curseAnswear == 's':
+        add_points(teams)
+    else:
+        print("Equipe penalizada!")
+
+
     
 #Código principal----------------------------------------------------------
 
@@ -78,35 +104,62 @@ teams = load_teams()
 clear()
 
 print("=== LevelUp!Jam! ===")
-print("\nO que deseja fazer? \n1.Lançar Desafios! \n2.Pontuar Equipes")
+print("\nO que deseja fazer?\n \n1.Lançar Desafios! \n2.Pontuar Equipes")
 
-if len(teams) == 0:
-    answear = input("\nNenhuma equipe registrada, deseja registrar equipes? (S/N): ")
-    if answear == 'S' or answear == 's':
-        print("\nVamos registrar nossas equipes!")
-        
-        while True:
-            name = input("Digite o nome da equipe (ou 'sair' para terminar): ")
-            if name.lower() == 'sair':
-                break
-            newTeam = create_teams(name)
-            teams.append(newTeam)
-        
-        save_teams(teams)
-        print("Equipes registradas com sucesso!")
-        add_points(teams)
+menuAnswear = input("\nDigite sua resposta: ")
+
+if menuAnswear == '1':
+
+    if len(teams) == 0:
+        answear = input("\nNenhuma equipe registrada, deseja registrar equipes? (S/N): ")
+        if answear == 'S' or answear == 's':
+            print("\nVamos registrar nossas equipes!")
+            
+            while True:
+                name = input("Digite o nome da equipe (ou 'sair' para terminar): ")
+                if name.lower() == 'sair':
+                    break
+                newTeam = create_teams(name)
+                teams.append(newTeam)
+            
+            save_teams(teams)
+            print("Equipes registradas com sucesso!")
+            add_points(teams)
+        else:
+            print("Até mais!")
     else:
-        print("Até mais!")
-else:
-    print("\nEquipes registradas:")
-    for i, team in enumerate(teams, start=1):
-        print(f"  {i}. {team['nome']} - {team['pontos']} pontos")
-    
-    answear = input("\nDeseja continuar a pontuação dessas equipes? (S/N): ")
-    if answear == 'S' or answear == 's':
-        print("Continuando pontuação!")
-        add_points(teams)
+        launch_challenge(teams)
+
+elif menuAnswear == '2':
+
+
+    if len(teams) == 0:
+        answear = input("\nNenhuma equipe registrada, deseja registrar equipes? (S/N): ")
+        if answear == 'S' or answear == 's':
+            print("\nVamos registrar nossas equipes!")
+            
+            while True:
+                name = input("Digite o nome da equipe (ou 'sair' para terminar): ")
+                if name.lower() == 'sair':
+                    break
+                newTeam = create_teams(name)
+                teams.append(newTeam)
+            
+            save_teams(teams)
+            print("Equipes registradas com sucesso!")
+            add_points(teams)
+        else:
+            print("Até mais!")
     else:
-        print("Até mais!")
+        print("\nEquipes registradas:")
+        for i, team in enumerate(teams, start=1):
+            print(f"  {i}. {team['nome']} - {team['pontos']} pontos")
+        
+        answear = input("\nDeseja continuar a pontuação dessas equipes? (S/N): ")
+        if answear == 'S' or answear == 's':
+            print("Continuando pontuação!")
+            add_points(teams)
+        else:
+            print("Até mais!")
 
     
