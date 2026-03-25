@@ -70,6 +70,7 @@ if len(teams) == 0:
         
         save_teams(teams)
         print("Equipes registradas com sucesso!")
+        add_points(teams)
     else:
         print("Até mais!")
 else:
