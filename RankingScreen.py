@@ -58,6 +58,8 @@ def add_points(teams):
         elif option == '4':
             print("\nHora de lançar maldições!")
             launch_challenge(teams)
+        else:
+            print("\nOpção inválida")
             
 
 
@@ -67,12 +69,23 @@ def edit_points(teams):
     for i, team in enumerate(teams, start=1):
         print(f"  {i}. {team['nome']} - {team['pontos']} pontos")
     
-    number = int(input("\nDigite o número da equipe: "))
+    while True:
+        try:
+            number = int(input("\nDigite o número da equipe: "))
+            break
+        except ValueError:
+            continue
     if 1 <= number <= len(teams):
-        newPoints = int(input("Digite a nova pontuação da equipe: "))
-        teams[number - 1]['pontos'] = newPoints
-        save_teams(teams)
-        print("Pontos alterados com sucesso!")
+        while True:
+            try: 
+                newPoints = int(input("Digite a nova pontuação da equipe: "))
+                teams[number - 1]['pontos'] = newPoints
+                save_teams(teams)
+                print("Pontos alterados com sucesso!")
+                break
+            except ValueError:
+                print ("Digite um número por favor")
+                continue
     else:
         print("Equipe inválida!")
 
