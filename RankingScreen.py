@@ -41,5 +41,14 @@ if len(teams) == 0:
     else:
         print("Até mais!")
 else:
-    print("Equipes existem já!")
+    print("Equipes registradas:")
+    for i, team in enumerate(teams, start=1):
+        print(f"  {i}. {team['nome']} - {team['pontos']} pontos")
+    
+    answear = input("\nDeseja continuar a pontuação dessas equipes? (S/N): ")
+    if answear == 'S' or answear == 's':
+        print("Continuando pontuação!")
+        # (aqui virá o sistema de pontuação)
+    else:
+        print("Até mais!")
     
