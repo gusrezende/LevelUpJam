@@ -22,6 +22,8 @@ def create_teams(names):
 
 teams = load_teams()
 
+clear()
+
 if len(teams) == 0:
     answear = input("Nenhuma equipe registrada, deseja registrar equipes? (S/N): ")
     if answear == 'S' or answear == 's':
@@ -38,3 +40,6 @@ if len(teams) == 0:
         print("Equipes registradas com sucesso!")
     else:
         print("Até mais!")
+else:
+    print("Equipes existem já!")
+    
